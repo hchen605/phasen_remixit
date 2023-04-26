@@ -62,10 +62,11 @@ class Trainer(BaseTrainer):
             torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.max_grad_norm)
             self.optimizer.step()
             loss_total += loss.item()
-            pbar.set_description("Loss: {:.3f}".format(loss.item()))
+            pbar.set_description("Loss: {:.5f}".format(loss.item()))
 
             # ema
-            t_momentum = 0.99
+            '''
+            t_momentum = 0.999
             if epoch > 0:
                 new_teacher_w = copy.deepcopy(self.teacher_model.state_dict())
                 student_w = self.model.state_dict()
@@ -75,6 +76,7 @@ class Trainer(BaseTrainer):
 
                 self.teacher_model.load_state_dict(new_teacher_w)
                 del new_teacher_w
+            '''
 
         self.writer.add_scalar(f"Loss/Train", loss_total / len(self.train_dataloader), epoch)
 
@@ -99,10 +101,10 @@ class Trainer(BaseTrainer):
 
             noisy = noisy.to(self.device)  # [Batch, length]
             clean = clean.to(self.device)  # [Batch, length]
-
+            
             loss = self.model(noisy, clean)
             enhanced, _ = self.model.inference(noisy)
-
+            
             loss_total += loss.item()
             noisy = noisy.squeeze(0).cpu().numpy()
             enhanced = enhanced.squeeze(0).cpu().numpy() # remove the batch dimension

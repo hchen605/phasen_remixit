@@ -58,7 +58,8 @@ class BaseTrainer:
         )
 
         if resume: self._resume_checkpoint()
-        if config["preloaded_model_path"]: self._preload_model(Path(config["preloaded_model_path"]))
+        if config["preloaded_model_path"] and config["trainer"]["student_pretrained"]:
+            self._preload_model(Path(config["preloaded_model_path"]))
 
         print("Configurations are as follows: ")
         print(json5.dumps(config, indent=2, sort_keys=False))

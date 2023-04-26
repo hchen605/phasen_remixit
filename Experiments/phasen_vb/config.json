@@ -6,11 +6,11 @@
   trainer: {
     module: "trainer.causal_trainer",
     main: "Trainer",
-    epochs: 20,
+    epochs: 40,
     save_checkpoint_interval: 5,
-    student_pretrained: true,
+    student_pretrained: false,
     validation: {
-      interval: 1,
+      interval: 10,
       find_max: true,
       custom: {
         visualization_limit: 20,
@@ -41,7 +41,7 @@
     module: "dataset.waveform_dataset",
     main: "Dataset",
     args: {
-      dataset_list: "filelists/test_vb_awgn_snr_0.txt",
+      dataset_list: "filelists/test_vb_awgn_snr_10.txt",
       limit: null,
       offset: 0,
       sample_rate: 16000,
@@ -54,7 +54,7 @@
     module: "dataset.waveform_dataset",
     main: "Dataset",
     args: {
-      dataset_list: "filelists/test_vb_awgn_snr_0.txt",
+      dataset_list: "filelists/test_vb_awgn_snr_10.txt",
       limit: null,
       offset: 0,
       sample_rate: 16000,
