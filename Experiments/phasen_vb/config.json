@@ -1,0 +1,79 @@
+{
+  seed: 1234,
+  description: "null",
+  root_dir: "Experiments/",
+  cudnn_deterministic: false,
+  trainer: {
+    module: "trainer.causal_trainer",
+    main: "Trainer",
+    epochs: 20,
+    save_checkpoint_interval: 5,
+    student_pretrained: true,
+    validation: {
+      interval: 1,
+      find_max: true,
+      custom: {
+        visualization_limit: 20,
+      },
+    },
+  },
+  model: {
+    module: "model.phasen",
+    main: "PHASEN",
+    args: {
+      n_fft: 512,
+      win_length: 512,
+      hop_length: 256,
+      transform_type: "exponent",
+    },
+  },
+  optimizer: {
+    lr: 0.0005,
+    beta1: 0.9,
+    beta2: 0.999,
+    weight_decay: 0.0,
+  },
+  lr_scheduler: {
+    decay_factor: 0.5,
+    patience: 4,
+  },
+  train_dataset: {
+    module: "dataset.waveform_dataset",
+    main: "Dataset",
+    args: {
+      dataset_list: "filelists/test_vb_awgn_snr_0.txt",
+      limit: null,
+      offset: 0,
+      sample_rate: 16000,
+      is_training: true,
+      sample_length: 48000,
+      do_normalize: true,
+    },
+  },
+  validation_dataset: {
+    module: "dataset.waveform_dataset",
+    main: "Dataset",
+    args: {
+      dataset_list: "filelists/test_vb_awgn_snr_0.txt",
+      limit: null,
+      offset: 0,
+      sample_rate: 16000,
+      is_training: false,
+      sample_length: 48000,
+      do_normalize: true,
+    },
+  },
+  train_dataloader: {
+    batch_size: 32,
+    num_workers: 32,
+    shuffle: true,
+    pin_memory: true,
+    collate_fn: {
+      module: "dataset.waveform_dataset",
+      main: "collate_fn",
+    },
+  },
+  experiment_name: "phasen_vb",
+  config_path: "config/train_RATS/phasen_vb.json",
+  preloaded_model_path: "../speech_enhance_phasen/Experiments/phasen_vb/checkpoints/best_model.tar",
+}

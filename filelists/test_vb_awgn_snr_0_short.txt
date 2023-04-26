@@ -1,0 +1,9 @@
+/home/koredata/hsinhung/speech/vb_demand/testset_awgn/snr_0/p232_226.wav /home/koredata/hsinhung/speech/vb_demand/clean_testset_wav/p232_226.wav
+/home/koredata/hsinhung/speech/vb_demand/testset_awgn/snr_0/p232_119.wav /home/koredata/hsinhung/speech/vb_demand/clean_testset_wav/p232_119.wav
+/home/koredata/hsinhung/speech/vb_demand/testset_awgn/snr_0/p232_369.wav /home/koredata/hsinhung/speech/vb_demand/clean_testset_wav/p232_369.wav
+/home/koredata/hsinhung/speech/vb_demand/testset_awgn/snr_0/p257_304.wav /home/koredata/hsinhung/speech/vb_demand/clean_testset_wav/p257_304.wav
+/home/koredata/hsinhung/speech/vb_demand/testset_awgn/snr_0/p257_057.wav /home/koredata/hsinhung/speech/vb_demand/clean_testset_wav/p257_057.wav
+/home/koredata/hsinhung/speech/vb_demand/testset_awgn/snr_0/p232_191.wav /home/koredata/hsinhung/speech/vb_demand/clean_testset_wav/p232_191.wav
+/home/koredata/hsinhung/speech/vb_demand/testset_awgn/snr_0/p257_356.wav /home/koredata/hsinhung/speech/vb_demand/clean_testset_wav/p257_356.wav
+/home/koredata/hsinhung/speech/vb_demand/testset_awgn/snr_0/p257_116.wav /home/koredata/hsinhung/speech/vb_demand/clean_testset_wav/p257_116.wav
+/home/koredata/hsinhung/speech/vb_demand/testset_awgn/snr_0/p257_405.wav /home/koredata/hsinhung/speech/vb_demand/clean_testset_wav/p257_405.wav
