@@ -4,6 +4,7 @@ yxhu@ASLP-NPU in Sogou inc.
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
+from asteroid.losses import pairwise_neg_sisdr
 
 from model.base_SE_model import Base_SE_Model
 
@@ -277,6 +278,20 @@ class PHASEN(Base_SE_Model):
             mag_loss = F.mse_loss(clean_features["mag"], enhanced_mag_spec.squeeze(1))
             phase_loss = F.mse_loss(complex_clean_spec, enhanced_cspec) / 2
             all_loss = mag_loss + phase_loss
+
+            # add SI-SDR
+            complex_enhanced_spec = enhanced_mag_spec * phase #[1, 2, 257, T]
+
+            complex_enhanced_spec = torch.complex(real=complex_enhanced_spec[:, 0], imag=complex_enhanced_spec[:, 1])
+            #[1, 257, T]
+            enhanced_wav = self.istft(complex_enhanced_spec, length=noisy_wav.size(1))
+            noise_wav = noisy_wav - enhanced_wav
+            enhanced_wav = enhanced_wav[:, None, :]
+            clean_wav = clean_wav[:, None, :]
+            loss_val = pairwise_neg_sisdr(enhanced_wav, clean_wav)
+
+            all_loss = all_loss + torch.mean(loss_val)
+
             return all_loss
         else:
             raise NotImplementedError
